@@ -78,8 +78,61 @@ licenciatura <- c("fisica2015_lic",
               "fisica2021_lic", 
               "fisica2022_lic")
 
+#quantidade de vagas oferecidas pro bacharel
+
+somar(bacharel,'QT_VG_TOTAL')
+
+# quantidade de vagas oferecidas pra licenciatura
+
+somar(licenciatura,'QT_VG_TOTAL')
+
 # quantidade de ingressantes bacharel
 somar(bacharel,"QT_ING")
 
-# quantidade de ingressante licenciatura
+# quantidade de ingressantes licenciatura
 somar(licenciatura,"QT_ING")
+
+# quantidade de concluintes bacharel
+
+somar(bacharel,'QT_CONC')
+
+# quantidade de concluintes licenciatura
+
+somar(licenciatura,'QT_CONC')
+
+# quantidade de inscritos totais bacharel
+
+somar(bacharel,'QT_INSCRITO_TOTAL')
+
+# quantidade de inscritos totais bacharel
+
+somar(licenciatura,'QT_INSCRITO_TOTAL')
+
+# fração de concluintes/formantes
+
+for (i in bacharel){
+  variavel <- get(i)
+  print(sum(variavel$QT_CONC,na.rm=TRUE)/sum(variavel$QT_ING,na.rm = TRUE))
+}
+
+for (i in licenciatura){
+  variavel <- get(i)
+  print(sum(variavel$QT_CONC,na.rm=TRUE)/sum(variavel$QT_ING,na.rm = TRUE))
+}
+
+
+resultados_bacharel <- vector("numeric", length(bacharel))
+resultados_licenciatura <- vector("numeric", length(licenciatura))
+
+for (i in seq_along(bacharel)){
+  variavel <- get(bacharel[i])
+  resultados_bacharel[i] <- sum(variavel$QT_CONC,na.rm=TRUE)/sum(variavel$QT_ING,na.rm = TRUE)
+}
+
+for (i in seq_along(licenciatura)){
+  variavel <- get(licenciatura[i])
+  resultados_licenciatura[i] <- sum(variavel$QT_CONC,na.rm=TRUE)/sum(variavel$QT_ING,na.rm = TRUE)
+}
+
+diferencas <- (resultados_bacharel - resultados_licenciatura) * 100
+print(diferencas)
